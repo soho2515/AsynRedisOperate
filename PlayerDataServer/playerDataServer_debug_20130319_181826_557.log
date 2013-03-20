@@ -1,0 +1,3 @@
+2013/03/19 18:18:26.588	tId:252	Connect to DB 118.144.76.244:6379 succ!
+2013/03/19 18:18:26.588	tId:252	DBThreadPool::Instance total thread pool num: 1!
+2013/03/19 18:18:26.588	tId:252	DBThreadPool::Begin ThreadPool Num: 0 begin work!

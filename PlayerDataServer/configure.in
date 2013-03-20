@@ -1,0 +1,36 @@
+#                                               -*- Autoconf -*-
+# Process this file with autoconf to produce a configure script.
+
+AC_PREREQ(2.59)
+AC_INIT(PlayerDataServer, VERSION, BUG-REPORT-ADDRESS)
+AM_INIT_AUTOMAKE(PlayerDataServer,1.0)
+#AC_CONFIG_SRCDIR([SceneService.h])
+#AC_CONFIG_HEADER([config.h])
+
+# Checks for programs.
+AC_PROG_CXX
+AC_PROG_CC
+
+# Checks for libraries.
+PTHREAD_PRESENT=""
+AC_CHECK_LIB(pthread,pthread_create,PTHREAD_PRESENT="yes",,$PTHREAD_LIBS -lpthread)
+if test "x$PTHREAD_PRESENT" = "xyes";then
+AC_DEFINE(HAVE_LIBPTHREAD,1,[Define if libpthread is present])
+PTHREAD_LIBS="-lpthread"
+AC_SUBST(PTHREAD_LIBS)
+fi
+
+# Checks for header files.
+
+# Checks for typedefs, structures, and compiler characteristics.
+AC_HEADER_TIME
+AC_HEADER_STDBOOL
+
+# Checks for library functions.
+#AC_PROG_GCC_TRADITIONAL
+AC_HEADER_STDC
+AC_FUNC_SELECT_ARGTYPES
+AC_CHECK_FUNCS(select socket)
+
+#AC_CONFIG_FILES([Makefile])
+AC_OUTPUT(Makefile)
