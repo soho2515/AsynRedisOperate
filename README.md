@@ -14,7 +14,10 @@ AsynRedisOperate
 与DBCommand绑定，见4.
 4. DBCommandCallback是DBCommand执行完回调的封装，任何回调操作都继承自此类。在DBCommand产生后如果绑定了Callback，命令执行完
 会自动调用Callback。
-5. 为了降低new和delete的频率，所有DBCommand和DBCommandCallback的工厂都是初始化时产生好的（中间使用过程中不够时增加不再建设），并
-复用的。所以所有DBCommand和DBCommandCallback需要在程序启动时注册。参考DBCommandFactoryRegister。
-6. 代码是windows和linux平台跨平台的。提供的convert.py程序会自动将vcproj文件转化问linux需要的makefile.am文件，进而可以通过
+5.需要特别注意：DBCommand都是在DB线程中执行的，DBCommandCallback都是在业务线程（主线程）中执行的，所有调用过程已封装完成，
+但在使用时最好始终理解这件事情。
+6. 为了降低new和delete的频率，所有DBCommand和DBCommandCallback的工厂都是初始化时产生好的（中间使用过程中不够时增加不再减少），并
+复用的。所以所有DBCommand和DBCommandCallback需要在程序启动时注册。参考DBCommandFactoryRegister.cpp。
+7. 代码是windows和linux平台跨平台的。提供的convert.py程序会自动将vcproj文件转化问linux需要的makefile.am文件，进而可以通过
 automake和configuretion产生makefile文件。此过程已经封装在compile***.sh文件中，在编译时可能需要根据自己的路径结构进行适当修改。
+所以此代码一般在windows下进行编译调试通过，然后在linux上通过sh直接生产linux版，偶尔会遇到一些跨平台错误，都很容易解决。
